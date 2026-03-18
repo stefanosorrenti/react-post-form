@@ -1,6 +1,7 @@
 //IMPORTS
 import { useState } from "react"
 import { useEffect } from "react"
+import axios from "axios"
 export default function AppMain() {
 
     //USE STATE
@@ -25,8 +26,33 @@ export default function AppMain() {
     //FUCNTIONS
     function handlerSubmit(e) { //Funzione che attiverò al submit del form
         e.preventDefault() //Blocco il comportamento naturale del form
+        //console.log(formData);
+        
+        axios.post('https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts', formData)
+        .then(res => {
+            console.log(res.data);
+            
+        })
+        .catch(err => {
+            console.log(err);
+            
+        })
 
+
+
+        /* fetch('https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts', {
+            method: 'POST',
+            headers : {'Content-Type': 'application/json; charset=UTF-8'},
+            body : JSON.stringify(formData)
+
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            
+        }) */
     }
+
 
     function handlerValue (e) { //Funzione che attiverò qunado ci saranno dei cambiamenti nei vari input 
 
@@ -36,10 +62,10 @@ export default function AppMain() {
         const type = e.target.type === 'checkbox' ? e.target.checked : e.target.value
 
         //Setto la mia variabile di statao cosi 'Crea un nuovo oggetto e inserisci tutti i dati clonati da l'oggetto form data'
-        
+
         setFormData({...formData, [e.target.name] : type})  //e aggiungi una nuova proprietà, il nome della proprietà e [IL VALORE]  l'attribbuto name dell'elemento 
         // che scatenato l'evento  e il valore della proprietà è la variabile dichiarata prima
-        console.log(formData);
+        //console.log(formData);
         
         
     }
