@@ -11,11 +11,9 @@ export default function AppMain() {
 
         title : '',
 
-        content: '',
+        body: '',
 
-        content: '',
-
-        visibility: false
+        pubblic: false
 
     })
 
@@ -28,16 +26,23 @@ export default function AppMain() {
         e.preventDefault() //Blocco il comportamento naturale del form
         //console.log(formData);
         
-        axios.post('https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts', formData)
-        .then(res => {
+        axios.post('https://67c5b4f3351c081993fb1ab6.mockapi.io/api/pos', formData) //Richiamo axios con il metodo post ed uso 2 parametri: il mi endpoint e i dati da inviare (gia' parsati)
+        .then(res => {  //Qui gestisco la risposta 
+            console.log(`Dati inviati`); //Loggo i dati in console
             console.log(res.data);
+
+            alert('Post aggiunto!')
+            
+
             
         })
-        .catch(err => {
-            console.log(err);
-            
+        .catch(err => { //Qui gestisco l'errore 
+            console.log(err); //In caso di errore
+            alert(`Qualcosa è andato storto!
+                ${err}`)
         })
 
+        
 
 
         /* fetch('https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts', {
@@ -59,11 +64,11 @@ export default function AppMain() {
         //Creo una costante in cui dico 'Se l'attributo type dell'elemento che ha scatenato l'evento (input) è uguale a 'checkbox' il valore di questa ' variabile è 
         //uguale all'attributo checked dell'elemento che ha scatenato l'evento, altrimenti è uguale all'ttributo value dell'elmeneto che ha scatenato l'evento.
         //Cosi facendo se il mio elemento è un checkbox posso settare ricavarmi il suo valroe booleano
-        const type = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
 
         //Setto la mia variabile di statao cosi 'Crea un nuovo oggetto e inserisci tutti i dati clonati da l'oggetto form data'
 
-        setFormData({...formData, [e.target.name] : type})  //e aggiungi una nuova proprietà, il nome della proprietà e [IL VALORE]  l'attribbuto name dell'elemento 
+        setFormData({...formData, [e.target.name] : value})  //e aggiungi una nuova proprietà, il nome della proprietà e [IL VALORE]  l'attribbuto name dell'elemento 
         // che scatenato l'evento  e il valore della proprietà è la variabile dichiarata prima
         //console.log(formData);
         
@@ -89,10 +94,10 @@ export default function AppMain() {
                     <input name="title" placeholder="Titolo" type="text" onChange={handlerValue} value={formData.title} />
 
                     {/* Post content */}
-                    <textarea name="content"  onChange={handlerValue} value={formData.content}></textarea>
+                    <textarea name="body"  onChange={handlerValue} value={formData.body}></textarea>
 
                     {/* Set post access */}
-                    <input name="visibility" type="checkbox"  onChange={handlerValue} checked={formData.visibility} />
+                    <input name="pubblic" type="checkbox"  onChange={handlerValue} checked={formData.pubblic} />
                     
                     {/* Send post */}
                     <button>invia post</button>
