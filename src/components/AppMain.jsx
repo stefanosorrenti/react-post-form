@@ -17,7 +17,9 @@ export default function AppMain() {
 
     })
 
-    const [successAlert, setSuccessAlert] = useState(null)
+    const [alert, setAlert] = useState(null) //Imposto una variabile di stato che si occuperà di renderizzare l'alert.
+    const [alertMessage, setAlertMessage] = useState('') //Imposto un variabile di stato che rendirzza il messaggio dell'alert
+    const [alertClass, setAlertClass] = useState(`alert mt-3 d-flex flex-column align-items-center`) //Imposto un variabile di stato che gesitrà dinamicamente la classe dell'alert
 
 
 
@@ -34,16 +36,22 @@ export default function AppMain() {
                 console.log(res.data);
 
                 //alert('Post aggiunto!')
-                setSuccessAlert(true)
+                setAlert(true) //Imposto il render dell'alert su true
+                setAlertClass(alertClass + ' alert-success') //Imposta la classe uguale a se stesso più 'alert-success'
+                setAlertMessage(`Il post è stato inviato correttamente`) //Imposto il relativo messaggio 
 
 
 
             })
             .catch(err => { //Qui gestisco l'errore 
                 console.log(err); //In caso di errore
-                alert(`Qualcosa è andato storto!
-                ${err}`)
-                setSuccessAlert(false)
+
+                setAlert(true) //Imposto il render dell'alert su true
+                setAlertClass(alertClass + ' alert-danger') //Imposta la classe uguale a se stesso più 'alert-danger'
+                setAlertMessage(`Il post non è stato inviato!`) //Imposto il relativo messaggio 
+                /* alert(`Qualcosa è andato storto!
+                ${err}`) */
+
             })
 
 
@@ -109,59 +117,34 @@ export default function AppMain() {
 
                         </div>
 
+                        { }
+
                         {/* Card footer */}
                         <div className="card-footer d-flex flex-column align-items-center">
 
-                            {/* Alerts */}
+                            
 
-                            {successAlert && (
 
-                                <div className="alert alert-success mt-3 d-flex flex-column align-items-center">
-                                    <p className="fs-3">Il post è stato inviato correttamente</p>
-                                    <a className="btn" onClick={() => setSuccessAlert(null)}><i class="bi bi-arrow-clockwise"></i></a>
+                            {/* Alerts con rendering condizionale */}
+                            {alert !== null ? ( //Se la variabile di alert è diversa da 'null'
+                                
+                                //Renderizzio questo div con le classi dinamiche inserite prima
+                                <div className={alertClass}> 
+                                    <p className="fs-3">{alertMessage}</p>
+                                    <a className="btn" onClick={() => setAlert(null)}><i class="bi bi-arrow-clockwise"></i></a> {/* Clicca sull'icona riporto il render 'standard' */}
                                 </div>
-
+                            ) : (
+                                <> {/* Altrimenti renderizzo il tasto per inviare il form */}
+                                    <div className="form-check">
+                                        <label htmlFor="form-check-label">Post pubblico</label>
+                                        <input className="form-check-input" name="pubblic" id="pubblic" type="checkbox" onChange={handlerValue} checked={formData.pubblic} />
+                                    </div>
+                                    
+                                    {/* Set post access */}
+                                    <button className="btn btn-danger">invia post</button>
+                                </>
 
                             )}
-
-
-                            {successAlert === false &&
-                                (
-                                    <div className="alert alert-danger mt-3 d-flex flex-column align-items-center">
-                                        <p className="fs-3">Il post non è stato inviato!</p>
-                                        <a className="btn" onClick={() => setSuccessAlert(null)}><i class="bi bi-arrow-clockwise"></i></a>
-                                    </div>
-
-                                )
-                            }
-
-
-
-
-
-
-
-
-
-
-
-
-                            {successAlert === null &&
-
-                                (
-                                    <>
-                                        <div className="form-check">
-                                            <label htmlFor="form-check-label">Post pubblico</label>
-                                            <input className="form-check-input" name="pubblic" id="pubblic" type="checkbox" onChange={handlerValue} checked={formData.pubblic} />
-                                        </div>
-                                        <button className="btn btn-danger">invia post</button>
-
-                                    </>
-                                )
-
-                            }
-                            {/* Set post access */}
-
 
                         </div>
                     </form>
