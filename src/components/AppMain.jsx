@@ -17,6 +17,8 @@ export default function AppMain() {
 
     })
 
+    const [successAlert, setSuccessAlert] = useState(null)
+
 
 
 
@@ -31,7 +33,8 @@ export default function AppMain() {
                 console.log(`Dati inviati`); //Loggo i dati in console
                 console.log(res.data);
 
-                alert('Post aggiunto!')
+                //alert('Post aggiunto!')
+                setSuccessAlert(true)
 
 
 
@@ -40,6 +43,7 @@ export default function AppMain() {
                 console.log(err); //In caso di errore
                 alert(`Qualcosa è andato storto!
                 ${err}`)
+                setSuccessAlert(false)
             })
 
 
@@ -104,18 +108,60 @@ export default function AppMain() {
                             <label htmlFor="floatingTextarea">Contenuto:</label>
 
                         </div>
-                        
+
                         {/* Card footer */}
                         <div className="card-footer d-flex flex-column align-items-center">
+
+                            {/* Alerts */}
+
+                            {successAlert && (
+
+                                <div className="alert alert-success mt-3 d-flex flex-column align-items-center">
+                                    <p className="fs-3">Il post è stato inviato correttamente</p>
+                                    <a className="btn" onClick={() => setSuccessAlert(null)}><i class="bi bi-arrow-clockwise"></i></a>
+                                </div>
+
+
+                            )}
+
+
+                            {successAlert === false &&
+                                (
+                                    <div className="alert alert-danger mt-3 d-flex flex-column align-items-center">
+                                        <p className="fs-3">Il post non è stato inviato!</p>
+                                        <a className="btn" onClick={() => setSuccessAlert(null)}><i class="bi bi-arrow-clockwise"></i></a>
+                                    </div>
+
+                                )
+                            }
+
+
+
+
+
+
+
+
+
+
+
+
+                            {successAlert === null &&
+
+                                (
+                                    <>
+                                        <div className="form-check">
+                                            <label htmlFor="form-check-label">Post pubblico</label>
+                                            <input className="form-check-input" name="pubblic" id="pubblic" type="checkbox" onChange={handlerValue} checked={formData.pubblic} />
+                                        </div>
+                                        <button className="btn btn-danger">invia post</button>
+
+                                    </>
+                                )
+
+                            }
                             {/* Set post access */}
 
-                            <div className="form-check">
-                                <label htmlFor="form-check-label">Post pubblico</label>
-                                <input className="form-check-input" name="pubblic" id="pubblic" type="checkbox" onChange={handlerValue} checked={formData.pubblic} />
-                            </div>
-                            
-                            {/* Send post */}
-                            <button className="btn btn-danger">invia post</button>
 
                         </div>
                     </form>
