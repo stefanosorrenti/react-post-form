@@ -26,7 +26,7 @@ export default function AppMain() {
         e.preventDefault() //Blocco il comportamento naturale del form
         //console.log(formData);
         
-        axios.post('https://67c5b4f3351c081993fb1ab6.mockapi.io/api/pos', formData) //Richiamo axios con il metodo post ed uso 2 parametri: il mi endpoint e i dati da inviare (gia' parsati)
+        axios.post('https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts', formData) //Richiamo axios con il metodo post ed uso 2 parametri: il mi endpoint e i dati da inviare (gia' parsati)
         .then(res => {  //Qui gestisco la risposta 
             console.log(`Dati inviati`); //Loggo i dati in console
             console.log(res.data);

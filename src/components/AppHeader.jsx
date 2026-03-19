@@ -7,7 +7,7 @@ export default  function AppHeader () {
         /* Header */
 
         <header className="text-center">
-            <h1>PROVA</h1>
+            <h1 className="p-4 text-white">POST</h1>
         </header>
 
     )
