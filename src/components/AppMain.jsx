@@ -102,12 +102,12 @@ export default function AppMain() {
                         <h2 className="text-center card-title">Inserisci il tuo post.</h2>
 
                         {/* Post authour */}
-                        <label className="form-label h5" htmlFor="author">Inserisci l'autore del post.</label>
-                        <input className="form-control mb-3" name="author" id="author" placeholder="Autore" type="text" onChange={handlerValue} value={formData.author} />
+                        <label className="form-label h5" htmlFor="author" >Inserisci l'autore del post.</label>
+                        <input className="form-control mb-3" name="author" id="author" placeholder="Autore" type="text" onChange={handlerValue} value={formData.author} required />
 
                         {/* Post title */}
                         <label className="form-label h5" htmlFor="title">Inserisci il titolo del post.</label>
-                        <input className="form-control mb-3" name="title" id="title" placeholder="Titolo" type="text" onChange={handlerValue} value={formData.title} />
+                        <input className="form-control mb-3" name="title" id="title" placeholder="Titolo" type="text" onChange={handlerValue} value={formData.title} required />
 
                         {/* Post content */}
                         <div className="form-floating">
@@ -141,7 +141,7 @@ export default function AppMain() {
                                     </div>
                                     
                                     {/* Set post access */}
-                                    <button className="btn btn-danger">invia post</button>
+                                    <button disabled={formData.body.length === 0 ? true : false} className="btn btn-danger">invia post</button>
                                 </>
 
                             )}
